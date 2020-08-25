@@ -1,0 +1,132 @@
+echo "# Python-Scheduler" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/janderson037/Python-Scheduler.git
+git push -u origin master
+
+#this program creates a scheduling system where the user can schedule a day and a time to meet and put their name to confirm their reservation
+
+#create a dict of meeting times for the different days
+Monday = {"2:00":"", "2:30":"", "3:00":"", "3:30":"", "4:00":"", "4:30":""}
+Tuesday = {"2:00":"", "2:30":"", "3:00":"", "3:30":"", "4:00":"", "4:30":""}
+Wednesday = {"2:00":"", "2:30":"", "3:00":"", "3:30":"", "4:00":"", "4:30":""}
+Thursday = {"2:00":"", "2:30":"", "3:00":"", "3:30":"", "4:00":"", "4:30":""}
+
+#define a main menu function to control program
+def main_menu():
+
+    #create an option where the user can choose what they woud like to do
+    option = input("What would you like to do today?\n"
+    "(s) - to schedule a meeting\n"
+    "(v) - to view the admin schedule\n"
+    "(q) - to quit\n"
+    "Which would you like to do: ")
+
+    #create a while loop to ask the user to input a valid choice
+    while True:
+
+        #create an if statement for the different outcomes that can happen
+        if option == "Q" or option == "q":
+            print("Well, I hope you have an amazing day and an amazing life. Maybe one day we will meet again! :)")
+            break
+        if option == "S" or option == "s":
+            schedule()
+            break
+        if option == "V" or option == "v":
+            view()
+            break
+        if option != "S" or option != "s" or option != "V" or option != "v" or option != "Q" or option != "q":
+            print("I do not understand. Please enter a valid choice.\n")
+            option = input("What would you like to do today?\n"
+            "(s) - to schedule a meeting\n"
+            "(v) - to view the admin schedule\n"
+            "(q) - to quit\n"
+            "Which would you like to do: ")
+    
+
+#define a function for scheduling an event
+def schedule():
+
+    # create the day option that the user can choose from
+    print("Here are the days you can choose from:\n"
+    "(1) - Monday\n"
+    "(2) - Tuesday\n"
+    "(3) - Wednesday\n"
+    "(4) - Thursday\n")
+    day = input("Please enter the number for the day you'd like to choose for your meeting (1-4): ")
+
+    #create an if statement to continue on to the times
+    if day == "1" or day == "2" or day == "3" or day == "4":
+        if day == "1":
+            for key in Monday:
+                if Monday[key] == "":
+                    print(key)
+        if day == "2":
+            for key in Tuesday:
+                if Tuesday[key] == "":
+                    print(key)
+        if day == "3":
+            for key in Wednesday:
+                if Wednesday[key] == "":
+                    print(key)
+        if day == "4":
+            for key in Thursday:
+                if Thursday[key] == "":
+                    print(key)
+        choice = input("Please enter the time you wish to schedule for (ex: 3:30) or (g) to go back: ")
+
+        #create an exit if user enters g for go back
+        if choice == "g":
+            main_menu()
+            return
+        
+        #create an if statement to continue on if it is not g and get the user's name
+        if choice != "g":
+            name = input("Please enter your name: ")
+
+    #add choice of time to empty list for its corresponding day
+    if day == "1" and choice != "g":
+        Monday[choice] = name
+    if day == "2" and choice != "g":
+        Tuesday[choice] = name
+    if day == "3" and choice != "g":
+        Wednesday[choice] = name
+    if day == "4" and choice != "g":
+        Thursday[choice] = name
+
+    #call on main_menu() function again
+    main_menu()
+
+#define view function
+def view():
+
+    #print the scheduled day, times, and names
+    print("Here is your schedule for the week:\n")
+    print("Monday:")
+    for key in Monday:
+        if Monday[key] != "":
+            print(key, Monday[key])
+    print("Tuesday:")
+    for key in Tuesday:
+        if Tuesday[key] != "":
+            print(key, Tuesday[key])
+    print("Wednesday:")
+    for key in Wednesday:
+        if Wednesday[key] != "":
+            print(key, Wednesday[key])
+    print("Thursday:")
+    for key in Thursday:
+        if Thursday[key] != "":
+            print(key, Thursday[key])
+    print("\n")
+
+    #call upon main_menu() again
+    main_menu()
+
+#create a main menu aesthetic 
+print("----------MAIN MENU----------")
+print("Welcome to the best scheduling program around! Now let's get this party started! :)\n")
+
+#call on main_menu() function to run
+main_menu()
